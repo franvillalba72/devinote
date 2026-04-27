@@ -8,7 +8,6 @@ from app.repositories.user_repository import UserRepository
 
 class AuthService:
     def __init__(self, db: Session):
-        self.db = db
         self.repo = UserRepository(db)
 
     def register(self, payload: UserCreate) -> User:

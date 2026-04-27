@@ -11,7 +11,6 @@ from app.repositories.share_repository import ShareRepository
 
 class NoteService:
     def __init__(self, db: Session):
-        self.db = db
         self.note_repo = NoteRepository(db)
         self.label_repo = LabelRepository(db)
         self.shared_repo = ShareRepository(db)
