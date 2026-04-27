@@ -22,7 +22,7 @@ def init_db() -> None:
     )  # development only, in production use migrations
 
 
-# Dependencia para obtener una sesión de base de datos. Al usarla en un endpoint, FastAPI se encargará de crear una sesión y cerrarla después de la solicitud gracias al uso de with que es un gestor de contexto.
+# Dependencia para obtener una sesión de base de datos. Al usarla en un endpoint, FastAPI se encargará de crear una sesión y cerrarla después de la solicitud gracias al uso de with que es un gestor de contexto. Devuelve un generador que yield la sesión, lo que permite que FastAPI maneje su ciclo de vida automáticamente.
 def get_session() -> Iterator[Session]:
     with Session(engine) as session:
         yield session
