@@ -5,7 +5,7 @@ from sqlmodel import Field, SQLModel
 
 # Clase para el modelo
 class User(SQLModel, table=True):
-    id: int = Field(default=None, primary_key=True, auto_increment=True)
+    id: int = Field(default=None, primary_key=True)
     email: str = Field(index=True, nullable=False, unique=True)
     full_name: str = Field(default="")
     hashed_password: str
@@ -25,3 +25,8 @@ class UserRead(SQLModel):
     model_config = {
         "from_attributes": True
     }  # Permite crear un UserRead a partir de un User
+
+
+class UserLogin(SQLModel):
+    email: str
+    password: str

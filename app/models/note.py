@@ -6,7 +6,7 @@ from sqlmodel import Field, SQLModel
 
 # Model
 class Note(SQLModel, table=True):
-    id: int = Field(default=None, primary_key=True, auto_increment=True)
+    id: int = Field(default=None, primary_key=True)
     title: str
     content: str = ""
     color: Optional[str] = None
