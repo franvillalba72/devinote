@@ -23,6 +23,8 @@ class LabelService:
     def delete(self, owner_id: int, label_id: int) -> None:
         label = self.repo.get_by_id(label_id)
         if not label or label.owner_id != owner_id:
-            raise HTTPException(status_code=404, detail="Etiqueta no encontrada")
+            raise HTTPException(
+                status_code=404, detail="Etiqueta no encontrada o no es tuya"
+            )
 
-        self.repo.delete(label_id)
+        self.repo.delete(label)
