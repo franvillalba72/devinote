@@ -4,7 +4,6 @@ from sqlmodel import SQLModel, Session, create_engine
 
 from app.core.config import settings
 
-
 engine = create_engine(
     settings.DATABASE_URL,
     echo=True,
@@ -17,9 +16,10 @@ engine = create_engine(
 
 
 def init_db() -> None:
-    SQLModel.metadata.create_all(
-        engine
-    )  # development only, in production use migrations
+    if settings.ENVIRONMENT == "dev":
+        SQLModel.metadata.create_all(
+            engine
+        )  # development only, in production use migrations
 
 
 # Dependencia para obtener una sesión de base de datos. Al usarla en un endpoint, FastAPI se encargará de crear una sesión y cerrarla después de la solicitud gracias al uso de with que es un gestor de contexto. Devuelve un generador que yield la sesión, lo que permite que FastAPI maneje su ciclo de vida automáticamente.
