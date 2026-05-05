@@ -31,8 +31,20 @@ if config.config_file_name is not None:
 load_dotenv()
 
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASE_URL = os.getenv("DATABASE_URL")  # Esto es en desarrollo local.
 
+# ************* CAMBIOS PARA DESPLIEGUE EN RENDER.COM ************
+raw_url = os.environ["DATABASE_URL"]
+url = raw_url
+
+if url.startswith("postgres://"):
+    url = "postgresql+psycopg://" + url[len("postgres://") :]
+    # url = url.replace("postgres://", "postgresql+psycopg://", 1)
+elif url.startswith("postgresql://") and "+psycopg" not in url:
+    url = "postgresql+psycopg://" + url[len("postgresql://") :]
+
+DATABASE_URL = url
+# ************ FIN CAMBIOS PARA DESPLIEGUE EN RENDER.COM ************
 
 target_metadata = SQLModel.metadata
 

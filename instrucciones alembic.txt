@@ -1,0 +1,15 @@
+1. Para instalar Alembic, se puede usar pip:
+pip install alembic
+
+2. Para inicializar Alembic en el proyecto, se debe ejecutar el siguiente comando:
+alembic init alembic
+
+3. Luego, se debe configurar el archivo alembic.ini para establecer la conexión a la base de datos. Se debe modificar la línea sqlalchemy.url con la URL de conexión a la base de datos.
+
+4. Después, se debe configurar el archivo env.py para importar los modelos de la base de datos. Se debe agregar el siguiente código al final del archivo:
+from myapp import models
+target_metadata = models.Base.metadata
+
+5. Luego, se pueden generar las migraciones con el siguiente comando:
+alembic revision --autogenerate -m "init schema on mac"
+alembic upgrade head
